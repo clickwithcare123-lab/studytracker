@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Academic Tracker</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:,">
+</head>
+<body>
+  <header>
+    <nav class="navbar" aria-label="Main navigation">
+      <div class="logo">Academic Tracker</div>
+      <button id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
+      <ul class="nav-links">
+        <li><a href="#dashboard" class="nav-link" aria-current="page">Dashboard</a></li>
+        <li><a href="#courses" class="nav-link">Courses</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main id="main-content">
+    <!-- Dashboard Section -->
+    <section id="dashboard" tabindex="0">
+      <h1>Dashboard</h1>
+      <div class="dashboard-summary">
+        <div class="summary-item">
+          <span id="totalCourses">0</span>
+          <label>Total Courses</label>
+        </div>
+        <div class="summary-item">
+          <span id="totalCredits">0</span>
+          <label>Total Credits</label>
+        </div>
+        <div class="summary-item">
+          <span id="currentSemester">-</span>
+          <label>Current Semester</label>
+        </div>
+      </div>
+      <div id="recentCourses">
+        <h2>Recent Courses</h2>
+        <ul id="recentCoursesList"></ul>
+      </div>
+    </section>
+    <!-- Courses Section -->
+    <section id="courses" tabindex="0" hidden>
+      <div class="courses-header">
+        <h1>Courses</h1>
+        <button id="addCourseBtn" aria-label="Add new course">+ Add Course</button>
+      </div>
+      <div class="search-filter-bar">
+        <input type="search" id="searchInput" placeholder="Search by name or code" aria-label="Search courses" />
+        <select id="filterSemester" aria-label="Filter by semester">
+          <option value="">All Semesters</option>
+        </select>
+        <select id="filterStatus" aria-label="Filter by status">
+          <option value="">All Statuses</option>
+          <option value="completed">Completed</option>
+          <option value="ongoing">Ongoing</option>
+        </select>
+        <button id="exportBtn" aria-label="Export data">Export</button>
+        <button id="importBtn" aria-label="Import data">Import</button>
+        <input type="file" id="importFile" accept=".json,.csv" style="display:none" />
+      </div>
+      <div id="coursesListContainer">
+        <!-- Courses grouped by semester will be rendered here -->
+      </div>
+    </section>
+    <!-- About Section -->
+    <section id="about" tabindex="0" hidden>
+      <h1>About Academic Tracker</h1>
+      <p>
+        Academic Tracker helps you manage your courses, track your academic progress by semester, and visualize your achievements. Add, edit, and organize your courses, and export or import your data for backup or transfer. All data is stored locally in your browser for privacy and speed.
+      </p>
+      <h2>How to Use</h2>
+      <ul>
+        <li>Add your courses with details like name, code, semester, credits, and status.</li>
+        <li>Track your progress per semester and overall.</li>
+        <li>Export your data for backup, or import it to restore progress.</li>
+        <li>Use search and filters to quickly find courses.</li>
+        <li>All features work offline and data is private to your device.</li>
+      </ul>
+    </section>
+  </main>
+  <!-- Course Modal -->
+  <div id="courseModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+    <div class="modal-content">
+      <button class="close-modal" id="closeModalBtn" aria-label="Close">&times;</button>
+      <h2 id="modalTitle">Add/Edit Course</h2>
+      <form id="courseForm">
+        <label for="courseName">Course Name</label>
+        <input type="text" id="courseName" name="courseName" required />
+        <label for="courseCode">Course Code</label>
+        <input type="text" id="courseCode" name="courseCode" required />
+        <label for="semester">Semester</label>
+        <input type="text" id="semester" name="semester" required placeholder="e.g. Fall 2024" />
+        <label for="credits">Credits</label>
+        <input type="number" id="credits" name="credits" min="0" required />
+        <label for="status">Status</label>
+        <select id="status" name="status" required>
+          <option value="ongoing">Ongoing</option>
+          <option value="completed">Completed</option>
+        </select>
+        <input type="hidden" id="courseId" name="courseId" />
+        <button type="submit" id="saveCourseBtn">Save</button>
+      </form>
+    </div>
+  </div>
+  <!-- Toast Notification -->
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <script src="script.js"></script>
+</body>
+</html>
